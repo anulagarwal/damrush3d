@@ -9,12 +9,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance = null;
 
     [Header("Component Reference")]
-    [SerializeField] public List<GameObject> controlObjects;
     [SerializeField] public GameObject confetti;
-    [SerializeField] public GameObject cross;
-    [SerializeField] GameObject cineCam;
-    [SerializeField] GameObject mainCam;
-
+    [SerializeField] public GameObject ballParent;
 
 
     [Header("Attributes")]
@@ -22,6 +18,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int currentLevel;
     [SerializeField] private int maxLevels;
     [SerializeField] GameState currentState;
+    [SerializeField] public int maxNumberOfBalls;
+    [SerializeField] int currentNumberOfBalls;
+
+
 
 
     #endregion
@@ -41,31 +41,40 @@ public class GameManager : MonoBehaviour
     {
         //SwitchCamera(CameraType.MatchStickCamera);
         currentLevel = PlayerPrefs.GetInt("level", 1);
-        foreach (GameObject g in controlObjects)
-        {
-            g.SetActive(false);
-        }
+      
         UIManager.Instance.UpdateLevel(currentLevel);
         currentState = GameState.Main;
         maxLevels = 3;
+        currentNumberOfBalls = maxNumberOfBalls;
     }
     #endregion
 
     public void StartLevel()
     {
-        UIManager.Instance.SwitchUIPanel(UIPanelState.Gameplay);
-        foreach (GameObject g in controlObjects)
+        DrawingManager.Instance.enabled = false;
+        UpdateState(GameState.InGame);
+    //    Spawner.Instance.enabled = true;
+        foreach(Ball b in ballParent.GetComponentsInChildren<Ball>())
         {
-            g.SetActive(true);
+            b.GetComponent<Rigidbody2D>().gravityScale = 1;
         }
-        currentState = GameState.InGame;
-
+//        GridManager.Instance.enabled = true;
     }
-    public void SwitchToMainCam()
-    {
-        cineCam.SetActive(false);
-        mainCam.SetActive(true);
 
+    public void StartDraw()
+    {
+        DrawingManager.Instance.enabled = true;
+        UpdateState(GameState.Draw);
+    }
+    public void EndDraw()
+    {
+    }
+    public void FinishSetup()
+    {
+        GridManager.Instance.ClearGrid();
+        GridManager.Instance.enabled = false;
+
+        //Enable ball drop
     }
 
     public void WinLevel()
@@ -73,32 +82,25 @@ public class GameManager : MonoBehaviour
         if (currentState == GameState.InGame)
         {
             confetti.SetActive(true);
-            Invoke("ShowWinUI", 1.4f);
-            foreach (GameObject g in controlObjects)
-            {
-                g.SetActive(false);
-            }
-            
-            currentState = GameState.Win;
 
+            UpdateState(GameState.Win);
             PlayerPrefs.SetInt("level", currentLevel + 1);
             currentLevel++;
         }
     }
 
+    
     public void LoseLevel()
     {
         if (currentState == GameState.InGame)
         {
-            //Show cat VFX
-            foreach (GameObject g in controlObjects)
-            {
-                g.SetActive(false);
-            }
-
-            Invoke("ShowLoseUI", 2f);
-            currentState = GameState.Lose;
+            UpdateState(GameState.Lose);
         }
+    }
+
+    public GameState GetCurrentGameState()
+    {
+        return currentState;
     }
 
     #region Scene Management
@@ -122,6 +124,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void LoadLevel(string s)
+    {
+        SceneManager.LoadScene(s);
+    }
+
     #endregion
 
 
@@ -133,14 +140,38 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.UpdateScore(currentScore);
     }
 
-    public void SpawnCross(Vector3 pos, Transform t)
+
+    public void UpdateState (GameState state)
     {
-        GameObject g = Instantiate(cross, pos, Quaternion.identity);
-        g.transform.parent = t;
+        switch (state)
+        {
+            case GameState.Main:
+                UIManager.Instance.SwitchUIPanel(UIPanelState.MainMenu);
+                break;
+
+            case GameState.Draw:
+                UIManager.Instance.SwitchUIPanel(UIPanelState.Drawing);
+                break;
+            case GameState.InGame:
+                UIManager.Instance.SwitchUIPanel(UIPanelState.Gameplay);
+                break;
+
+            case GameState.Win:
+                UIManager.Instance.SwitchUIPanel(UIPanelState.GameWin);
+                Invoke("ShowWinUI", 1.4f);
+
+                break;
+
+            case GameState.Lose:
+                UIManager.Instance.SwitchUIPanel(UIPanelState.GameLose);
+                Invoke("ShowLoseUI", 1.4f);
+
+                break;
+
+        }
+        currentState = state;
+
     }
-
-
-
     #endregion
 
     #region Invoke Functions

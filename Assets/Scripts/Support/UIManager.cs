@@ -17,21 +17,21 @@ public class UIManager : MonoBehaviour
     [Header("UI Panel")]
     [SerializeField] private GameObject mainMenuUIPanel = null;
     [SerializeField] private GameObject gameplayUIPanel = null;
+    [SerializeField] private GameObject drawUIPanel = null;
+
     [SerializeField] private GameObject gameOverWinUIPanel = null;
     [SerializeField] private GameObject gameOverLoseUIPanel = null;
+
+    [Header ("Texts")]
     [SerializeField] private TextMeshProUGUI scoreText = null;
     [SerializeField] private Text mainLevelText = null;
     [SerializeField] private Text inGameLevelText = null;
 
-    [Header("Fill Bar")]
-    [SerializeField] private Image fillBar;
-    [SerializeField] private Text fillPercent;
-    [SerializeField] private Transform slider;
-    [SerializeField] private float sliderMinVal;
-    [SerializeField] private float sliderMaxVal;
+    [Header("Inventory")]
+    [SerializeField] private Text currentWalls = null;
 
-    [Header("Sleep Fill Bar")]
-    [SerializeField] private Image sleepfillBar;
+    [Header("Ink")]
+    [SerializeField] private Image inkFill = null;
 
 
     #endregion
@@ -66,24 +66,40 @@ public class UIManager : MonoBehaviour
                 gameplayUIPanel.SetActive(false);
                 gameOverWinUIPanel.SetActive(false);
                 gameOverLoseUIPanel.SetActive(false);
+                drawUIPanel.SetActive(false);
+                break;
+
+            case UIPanelState.Drawing:
+                mainMenuUIPanel.SetActive(false);
+                gameplayUIPanel.SetActive(false);
+                gameOverWinUIPanel.SetActive(false);
+                gameOverLoseUIPanel.SetActive(false);
+                drawUIPanel.SetActive(true);
+
                 break;
             case UIPanelState.Gameplay:
                 mainMenuUIPanel.SetActive(false);
                 gameplayUIPanel.SetActive(true);
                 gameOverWinUIPanel.SetActive(false);
                 gameOverLoseUIPanel.SetActive(false);
+                drawUIPanel.SetActive(false);
+
                 break;
             case UIPanelState.GameWin:
                 mainMenuUIPanel.SetActive(false);
                 gameplayUIPanel.SetActive(false);
                 gameOverWinUIPanel.SetActive(true);
                 gameOverLoseUIPanel.SetActive(false);
+                drawUIPanel.SetActive(false);
+
                 break;
             case UIPanelState.GameLose:
                 mainMenuUIPanel.SetActive(false);
                 gameplayUIPanel.SetActive(false);
                 gameOverWinUIPanel.SetActive(false);
                 gameOverLoseUIPanel.SetActive(true);
+                drawUIPanel.SetActive(false);
+
                 break;
         }
     }
@@ -101,19 +117,11 @@ public class UIManager : MonoBehaviour
         inGameLevelText.text = "LEVEL " + level;
     }
 
-    public void UpdateFillBar(float val)
+  
+    public void UpdateInkAmount(float val)
     {
-        fillBar.fillAmount = val;
-        fillPercent.text = Mathf.Round((val * 100)) + "%";
-
-        slider.transform.localPosition = new Vector3(sliderMinVal + ((sliderMaxVal - sliderMinVal) / (1 / val)), 0, 0);
+        inkFill.fillAmount = val;
     }
-
-    public void UpdateSleepFillBar(float val)
-    {
-        sleepfillBar.fillAmount = val;
-    }
-
 
     public void SpawnPointText(Vector3 point)
     {
@@ -124,6 +132,11 @@ public class UIManager : MonoBehaviour
     {
         GameObject g = Instantiate(AwesomeText, new Vector3(point.x, 2, point.z), Quaternion.identity);
         g.GetComponentInChildren<TextMeshPro>().text = s;
+    }
+
+    public void UpdateCurrentWallsCounts(int val)
+    {
+        currentWalls.text = "x" + val;
     }
     #endregion
 

@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Ball
+  - Point
+  - Objective
+  - Bucket
+  - Ground
+  - Wall
+  - CantDraw
   layers:
   - Default
   - TransparentFX
@@ -13,9 +20,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - Drawing
+  - OnDraw
+  - Wall
   - 
   - 
   - 

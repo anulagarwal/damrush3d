@@ -9,6 +9,7 @@ public enum PlayerAnimationState
 public enum UIPanelState
 {
     MainMenu,
+    Drawing,
     Gameplay,
     GameWin,
     GameLose
@@ -23,6 +24,7 @@ public enum GameOverState
 public enum GameState
 {
     Main,
+    Draw,
     InGame,
     Win,
     Lose
