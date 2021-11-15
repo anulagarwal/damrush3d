@@ -51,7 +51,6 @@ public class GameManager : MonoBehaviour
 
     public void StartLevel()
     {
-        DrawingManager.Instance.enabled = false;
         UpdateState(GameState.InGame);
     //    Spawner.Instance.enabled = true;
         foreach(Ball b in ballParent.GetComponentsInChildren<Ball>())
@@ -63,7 +62,6 @@ public class GameManager : MonoBehaviour
 
     public void StartDraw()
     {
-        DrawingManager.Instance.enabled = true;
         UpdateState(GameState.Draw);
     }
     public void EndDraw()

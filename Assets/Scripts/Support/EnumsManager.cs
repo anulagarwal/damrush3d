@@ -37,6 +37,12 @@ public enum CatState
     Awake
 }
 
+public enum DrawMaterial
+{
+    Fix,
+    Fall
+}
+
 public enum Sound
 {
     Purr,

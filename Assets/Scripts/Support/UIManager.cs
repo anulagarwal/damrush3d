@@ -123,6 +123,10 @@ public class UIManager : MonoBehaviour
         inkFill.fillAmount = val;
     }
 
+    public void UpdateInkColor(Color c)
+    {
+        inkFill.color = c;
+    }
     public void SpawnPointText(Vector3 point)
     {
         Instantiate(PointText, point, Quaternion.identity);

@@ -11,6 +11,7 @@ TagManager:
   - Ground
   - Wall
   - CantDraw
+  - DrawingManager
   layers:
   - Default
   - TransparentFX
