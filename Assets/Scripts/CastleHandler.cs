@@ -12,7 +12,7 @@ public class CastleHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        UpdateHealth(health);
     }
 
     // Update is called once per frame

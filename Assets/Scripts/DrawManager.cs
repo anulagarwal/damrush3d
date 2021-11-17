@@ -40,7 +40,6 @@ public class DrawManager : MonoBehaviour
         currentInk = maxInk;
         UIManager.Instance.UpdateInkAmount(currentInk / maxInk);
 
-        UpdateMaterial(1);
     }
 
     // Update is called once per frame

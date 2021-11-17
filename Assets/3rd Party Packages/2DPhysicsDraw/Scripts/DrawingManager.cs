@@ -6,7 +6,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using MoreMountains.NiceVibrations;
 public enum ColliderTypeChoices { Polygon_Collider, Edge_Collider }
 public enum overlapHandlingChoices { Follow_The_Edge, Cut_After_Collision, None }
 
@@ -173,6 +173,8 @@ Mathf.Infinity, layerMask);
                 //// BugFix V4.0.0 - after changing the offset, it would still start at the mouse position
                 //// changed mousePointer.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition)
                 //// to mousePointer.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + new Vector3(offsetX, offsetY)
+                ///
+                MMVibrationManager.Haptic(HapticTypes.MediumImpact);
                 mousePointer.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) + new Vector3(offsetX, offsetY);
                 if (overlapHandling == overlapHandlingChoices.Follow_The_Edge)
                     mousePointer.GetComponent<CircleCollider2D>().isTrigger = false;

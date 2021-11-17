@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using MoreMountains.NiceVibrations;
 public class GameManager : MonoBehaviour
 {
     #region Properties
@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
         currentLevel = PlayerPrefs.GetInt("level", 1);
         UIManager.Instance.UpdateLevel(currentLevel);
         currentState = GameState.Main;
-        maxLevels = 3;
+        maxLevels = 4;
         currentNumberOfBalls = maxNumberOfBalls;
     }
     #endregion
@@ -51,17 +51,17 @@ public class GameManager : MonoBehaviour
     public void StartLevel()
     {
         UpdateState(GameState.InGame);
-    //    Spawner.Instance.enabled = true;
-        foreach(Ball b in ballParent.GetComponentsInChildren<Ball>())
-        {
-            b.GetComponent<Rigidbody2D>().gravityScale = 1;
-        }
+        //    Spawner.Instance.enabled = true;
+        DrawManager.Instance.UpdateMaterial(1);
+
 //        GridManager.Instance.enabled = true;
     }
 
     public void StartDraw()
     {
         UpdateState(GameState.Draw);
+        DrawManager.Instance.UpdateMaterial(1);
+
     }
     public void EndDraw()
     {
@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("level", currentLevel + 1);
             currentLevel++;
             confetti.SetActive(true);
-
+            MMVibrationManager.Haptic(HapticTypes.Success);
         }
     }
 
@@ -129,7 +129,20 @@ public class GameManager : MonoBehaviour
 
     public void LoadLevel(string s)
     {
-        SceneManager.LoadScene(s);
+
+        if (currentLevel > maxLevels)
+        {
+            int newId = currentLevel % maxLevels;
+            if (newId == 0)
+            {
+                newId = maxLevels;
+            }
+            SceneManager.LoadScene("Level " + (newId));
+        }
+        else
+        {
+            SceneManager.LoadScene("Level " + currentLevel);
+        }
     }
 
     #endregion

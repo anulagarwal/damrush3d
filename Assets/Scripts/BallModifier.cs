@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
+using MoreMountains.NiceVibrations;
 public class BallModifier : MonoBehaviour
 {
     [SerializeField]
@@ -136,7 +137,8 @@ public class BallModifier : MonoBehaviour
             spawnedBalls.Add(ballObj.gameObject.GetInstanceID());
             spawnedBalls.Add(colliderPos.gameObject.GetInstanceID());
             ballObj.gameObject.SetActive(true);
-          //  BucketController.Instance.ballsSpawned.Add(ballObj);
+            MMVibrationManager.Haptic(HapticTypes.LightImpact);
+            //  BucketController.Instance.ballsSpawned.Add(ballObj);
         }
     }
 }
