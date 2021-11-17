@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour
     {
         //SwitchCamera(CameraType.MatchStickCamera);
         currentLevel = PlayerPrefs.GetInt("level", 1);
-      
         UIManager.Instance.UpdateLevel(currentLevel);
         currentState = GameState.Main;
         maxLevels = 3;
@@ -77,20 +76,26 @@ public class GameManager : MonoBehaviour
 
     public void WinLevel()
     {
-        if (currentState == GameState.InGame)
+        if (currentState == GameState.InGame || currentState == GameState.Draw)
         {
-            confetti.SetActive(true);
-
             UpdateState(GameState.Win);
             PlayerPrefs.SetInt("level", currentLevel + 1);
             currentLevel++;
+            confetti.SetActive(true);
+
         }
     }
 
-    
+    public void InkOverCheckCondition()
+    {
+        if (currentState == GameState.InGame || currentState == GameState.Draw)
+        {
+            UpdateState(GameState.Lose);
+        }
+    }
     public void LoseLevel()
     {
-        if (currentState == GameState.InGame)
+        if (currentState == GameState.InGame || currentState == GameState.Draw)
         {
             UpdateState(GameState.Lose);
         }
@@ -155,15 +160,11 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.Win:
-                UIManager.Instance.SwitchUIPanel(UIPanelState.GameWin);
                 Invoke("ShowWinUI", 1.4f);
-
                 break;
 
             case GameState.Lose:
-                UIManager.Instance.SwitchUIPanel(UIPanelState.GameLose);
                 Invoke("ShowLoseUI", 1.4f);
-
                 break;
 
         }

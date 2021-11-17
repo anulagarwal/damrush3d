@@ -13,7 +13,7 @@ public enum overlapHandlingChoices { Follow_The_Edge, Cut_After_Collision, None 
 public class DrawingManager : MonoBehaviour
 {
 
-
+    public bool isInkOver;
     private LineRenderer pathLineRenderer;
     private EdgeCollider2D pathEdgeCollider;
     private PolygonCollider2D pathPolygonCollider;
@@ -141,6 +141,7 @@ public class DrawingManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(Input.GetMouseButton(0))
         mousePointer.GetComponent<TargetJoint2D>().target = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x + offsetX,
                                                                         Camera.main.ScreenToWorldPoint(Input.mousePosition).y + offsetY);
     }
@@ -199,6 +200,12 @@ Mathf.Infinity, layerMask);
                     }
 
                     DrawVisibleLine();
+                }
+
+                if(DrawManager.Instance.GetCurrentInk() <= 0)
+                {
+                    EndDrawing();
+                    Invoke("InkOver", 5f);
                 }
             }
         }
@@ -264,6 +271,7 @@ Mathf.Infinity, layerMask);
             }
             CalculatesPrevCenterOfMassAndMass(newVerticies.Count - 1);
             clone.layer = LayerMask.NameToLayer("Drawing");
+            clone.tag = "DrawnWall";
             pathLineRenderer.positionCount = newVerticies.Count - 1;
             for (int i = 0; i < newVerticies.Count - 1; i++)
             {
@@ -312,8 +320,17 @@ Mathf.Infinity, layerMask);
             if(pathRigidbody!=null)
             pathRigidbody.bodyType = RigidbodyType2D.Static;
         }
+
+        
     }
 
+    void InkOver()
+    {
+        if (GameManager.Instance.GetCurrentGameState()==GameState.Draw)
+        {
+            GameManager.Instance.InkOverCheckCondition();                
+        }
+    }
     /// <summary>
     /// Instantiate prefab and initialize necessary variables for the drawing construction
     /// </summary>

@@ -46,9 +46,10 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if(collision.gameObject.tag=="DrawnWall")
         if (GetComponent<Rigidbody2D>().gravityScale == 0)
         {
-            //GetComponent<Rigidbody2D>().gravityScale = 1;
+            GetComponent<Rigidbody2D>().gravityScale = 1;
         }
     }
 }

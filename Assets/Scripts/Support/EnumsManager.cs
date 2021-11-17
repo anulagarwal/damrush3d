@@ -29,6 +29,13 @@ public enum GameState
     Win,
     Lose
 }
+
+public enum GameType
+{
+    Normal,
+    Shoot
+
+}
 public enum CatState
 {
     WalkSleep,
