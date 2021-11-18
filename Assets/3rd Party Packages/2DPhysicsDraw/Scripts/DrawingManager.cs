@@ -86,11 +86,6 @@ public class DrawingManager : MonoBehaviour
     // actual length of the line, it will add continuously for new drawings untill this variable is reset on code or manually
     public float lineLength = 0;
 
-    // v4.1 -Added functionality: combined pointer click + key
-    [Header("Combined Pointer Click + Key")]
-    public bool useCombinedClick;
-    public KeyCode combinedKey;
-
     // =================
 
  
@@ -189,7 +184,7 @@ Mathf.Infinity, layerMask);
         if (Input.GetMouseButton(0) && (lenghLimit == 0 || lineLength < lenghLimit) && DrawManager.Instance.GetCurrentInk() > 0) //V4.0.2
         {
             // v4.1 -combined key check
-            bool draw = useCombinedClick ? (Input.GetKey(combinedKey) ? true : false) : true;
+            bool draw =  true;
 
             if (draw)
             {

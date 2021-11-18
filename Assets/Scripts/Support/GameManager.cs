@@ -42,7 +42,8 @@ public class GameManager : MonoBehaviour
         //SwitchCamera(CameraType.MatchStickCamera);
         currentLevel = PlayerPrefs.GetInt("level", 1);
         UIManager.Instance.UpdateLevel(currentLevel);
-        currentState = GameState.Main;
+        currentState = GameState.Draw;
+        UpdateState(currentState);
         maxLevels = 4;
         currentNumberOfBalls = maxNumberOfBalls;
     }
@@ -60,8 +61,6 @@ public class GameManager : MonoBehaviour
     public void StartDraw()
     {
         UpdateState(GameState.Draw);
-        DrawManager.Instance.UpdateMaterial(1);
-
     }
     public void EndDraw()
     {
@@ -167,6 +166,8 @@ public class GameManager : MonoBehaviour
 
             case GameState.Draw:
                 UIManager.Instance.SwitchUIPanel(UIPanelState.Drawing);
+                DrawManager.Instance.UpdateMaterial(1);
+
                 break;
             case GameState.InGame:
                 UIManager.Instance.SwitchUIPanel(UIPanelState.Gameplay);

@@ -417,6 +417,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 461116, guid: a086556e3375f6f409e19a8b6b01c323, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.94
+      objectReference: {fileID: 0}
     - target: {fileID: 11478142, guid: a086556e3375f6f409e19a8b6b01c323, type: 3}
       propertyPath: maxInk
       value: 99
@@ -1254,8 +1258,6 @@ MonoBehaviour:
   tagCantDraw: Wall,Ground
   lenghLimit: 0
   lineLength: 0
-  useCombinedClick: 0
-  combinedKey: 306
 --- !u!1 &968270718
 GameObject:
   m_ObjectHideFlags: 0
@@ -1598,6 +1600,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1916303901, guid: 29c0dedda858b4cf9aa161d98c9b20a3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1916303901, guid: 29c0dedda858b4cf9aa161d98c9b20a3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.03
+      objectReference: {fileID: 0}
     - target: {fileID: 1957323810978692653, guid: 29c0dedda858b4cf9aa161d98c9b20a3, type: 3}
       propertyPath: m_Name
       value: SeeSaw

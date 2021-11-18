@@ -50,10 +50,7 @@ public enum DrawMaterial
     Fall
 }
 
-public enum Sound
+public enum SoundType
 {
-    Purr,
-    Meow,
-    Scream,
-    Hiss
+    Pop
 }

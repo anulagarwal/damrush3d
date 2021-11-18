@@ -4,15 +4,28 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
+    [System.Serializable]
+    public class Sound
+    {
+        public AudioClip sound;
+        public SoundType type;
+    }
+
+
+    [Header("Attributes")]
+    [SerializeField] List<Sound> sounds;
+
+    [Header("Component References")]
+    [SerializeField] AudioSource source;
+
     // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    void PlaySound(SoundType t)
     {
-        
+
     }
 }
