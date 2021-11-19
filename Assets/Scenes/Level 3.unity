@@ -197,11 +197,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 120560, guid: a086556e3375f6f409e19a8b6b01c323, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 120560, guid: a086556e3375f6f409e19a8b6b01c323, type: 3}
       propertyPath: m_TagString
       value: DrawingManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 141120, guid: a086556e3375f6f409e19a8b6b01c323, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 407706, guid: a086556e3375f6f409e19a8b6b01c323, type: 3}
       propertyPath: m_RootOrder
@@ -966,67 +970,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da96fcd3c94664b69829c0fef2b72981, type: 3}
---- !u!1 &935834996 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 120560, guid: a086556e3375f6f409e19a8b6b01c323, type: 3}
-  m_PrefabInstance: {fileID: 224053813}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &935834997 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 11478142, guid: a086556e3375f6f409e19a8b6b01c323, type: 3}
   m_PrefabInstance: {fileID: 224053813}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 935834996}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d05b281fbc128f4f96d29cde06d455c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &935834998
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 935834996}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d05b281fbc128f4f96d29cde06d455c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isInkOver: 0
-  newVerticies: []
-  path: {fileID: 103972, guid: 812ef6c4b42950a4f8ab8d894a53614c, type: 3}
-  massCenter: {fileID: 162826, guid: abb2883239221d248839d2945f87577e, type: 3}
-  mousePointer: {fileID: 0}
-  centerOfMass: {x: 0, y: 0}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 4294966783
-  colorStart: {r: 0, g: 0, b: 0, a: 1}
-  colorEnd: {r: 0, g: 0, b: 0, a: 1}
-  material: {fileID: 0}
-  widthStart: 0.2
-  widthEnd: 0.2
-  offsetX: 0
-  offsetY: 0
-  verticesDistance: 0.1
-  fixedPosition: 0
-  isPermanent: 1
-  lifeTime: 2
-  colliderType: 0
-  showMassCenter: 0
-  massCenterPrecision: 1
-  dynamicMass: 0
-  massScale: 1
-  gravityScale: 1
-  overlapHandling: 0
-  freezeWhileDrawing: 0
-  tagCantDraw: Wall,Ground
-  lenghLimit: 0
-  lineLength: 0
-  useCombinedClick: 0
-  combinedKey: 306
 --- !u!1 &968270718
 GameObject:
   m_ObjectHideFlags: 0

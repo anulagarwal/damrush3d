@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using MoreMountains.NiceVibrations;
 public class CastleHandler : MonoBehaviour
 {
     [Header("Attributes")]
@@ -32,7 +33,9 @@ public class CastleHandler : MonoBehaviour
         if(collision.gameObject.tag == "Ball")
         {
             Destroy(collision.gameObject);
-            UpdateHealth(health--);
+                MMVibrationManager.Haptic(HapticTypes.MediumImpact);
+            health -= 1;
+            UpdateHealth(health);
             if (health <= 0)
             {
                 //Victory condition

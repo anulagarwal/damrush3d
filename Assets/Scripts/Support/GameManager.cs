@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.UpdateLevel(currentLevel);
         currentState = GameState.Draw;
         UpdateState(currentState);
-        maxLevels = 4;
+        maxLevels = 7;
         currentNumberOfBalls = maxNumberOfBalls;
     }
     #endregion
