@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8591658816581674735}
   - component: {fileID: 8591658816741516148}
   m_Layer: 0
-  m_Name: SeaSawPlank
+  m_Name: WeightPlank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 6637277649423511525}
   - component: {fileID: 8041806516295116120}
   m_Layer: 0
-  m_Name: SeawSawFix
+  m_Name: WeightPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
