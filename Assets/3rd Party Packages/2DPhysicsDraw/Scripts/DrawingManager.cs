@@ -88,7 +88,7 @@ public class DrawingManager : MonoBehaviour
 
     // =================
 
- 
+
 
     void Start()
     {
@@ -136,9 +136,8 @@ public class DrawingManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(Input.GetMouseButton(0))
         mousePointer.GetComponent<TargetJoint2D>().target = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x + offsetX,
-                                                                        Camera.main.ScreenToWorldPoint(Input.mousePosition).y + offsetY);
+                                                                       Camera.main.ScreenToWorldPoint(Input.mousePosition).y + offsetY);
     }
 
     void Update()
@@ -151,6 +150,7 @@ Mathf.Infinity, layerMask);
         // mouseRay detects if the mouse is over some object
         mouseRay = Physics2D.Raycast((Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero,
 Mathf.Infinity, layerMask);
+
 
         if (Input.GetMouseButtonDown(0) && DrawManager.Instance.GetCurrentInk() > 0)
         {
@@ -184,7 +184,7 @@ Mathf.Infinity, layerMask);
         if (Input.GetMouseButton(0) && (lenghLimit == 0 || lineLength < lenghLimit) && DrawManager.Instance.GetCurrentInk() > 0) //V4.0.2
         {
             // v4.1 -combined key check
-            bool draw =  true;
+            bool draw = true;
 
             if (draw)
             {
@@ -199,7 +199,7 @@ Mathf.Infinity, layerMask);
                     DrawVisibleLine();
                 }
 
-                if(DrawManager.Instance.GetCurrentInk() <= 0)
+                if (DrawManager.Instance.GetCurrentInk() <= 0)
                 {
                     EndDrawing();
                     Invoke("InkOver", 5f);
@@ -222,7 +222,6 @@ Mathf.Infinity, layerMask);
         FreezeMoving.freeze = false;
         if (canDraw == true)
         {
-            mousePointer.GetComponent<CircleCollider2D>().isTrigger = true;
             mouseHit = false;
 
 
@@ -306,6 +305,8 @@ Mathf.Infinity, layerMask);
         canDraw = true;
 
         FreezeMoving.freeze = false;
+        mousePointer.GetComponent<CircleCollider2D>().isTrigger = true;
+
         // if set to freeze the drawn objects while drawing a new one and is not set to be fixed position, 
         // it adds the script FreezeMoving to the new drawings so it freezes when FreezeMoving.freeze variable is true
         if (fixedPosition == false && clone)
@@ -314,18 +315,18 @@ Mathf.Infinity, layerMask);
         }
         else
         {
-            if(pathRigidbody!=null)
-            pathRigidbody.bodyType = RigidbodyType2D.Static;
+            if (pathRigidbody != null)
+                pathRigidbody.bodyType = RigidbodyType2D.Static;
         }
 
-        
+
     }
 
     void InkOver()
     {
-        if (GameManager.Instance.GetCurrentGameState()==GameState.Draw)
+        if (GameManager.Instance.GetCurrentGameState() == GameState.Draw)
         {
-            GameManager.Instance.InkOverCheckCondition();                
+            GameManager.Instance.InkOverCheckCondition();
         }
     }
     /// <summary>
@@ -340,7 +341,7 @@ Mathf.Infinity, layerMask);
         pathRigidbody = clone.GetComponent<Rigidbody2D>();
         pathRigidbody.bodyType = RigidbodyType2D.Kinematic;                       // Set rigidbody kinematic so it wont move during the drawing process
         pathRigidbody.gravityScale = gravityScale;              // Adjust gravity for the drawing
-        clone.transform.position = Vector3.zero; // Camera.main.transform.position - new Vector3(0,0,Camera.main.transform.position.z);
+        clone.transform.position = new Vector3(mousePointer.transform.position.x, mousePointer.transform.position.y, mousePointer.transform.position.z - Camera.main.transform.position.z); // Camera.main.transform.position - new Vector3(0,0,Camera.main.transform.position.z);
         clone.transform.rotation = Quaternion.identity;
         pathRigidbody.centerOfMass = Vector2.zero;              // Initialize center of mass before calculating the real position
 
@@ -357,12 +358,12 @@ Mathf.Infinity, layerMask);
         newVerticies2.Clear();                                  // This is the List used to create the Polygon Collider 2D
         pathLineRenderer.positionCount = 1;                     // Add one position spot so it can add the first point of the Drawing
 
-        pathLineRenderer.SetPosition(0, mousePointer.transform.position - new Vector3(0, 0, Camera.main.transform.position.z)); // Add first point in the Line Renderer
+        pathLineRenderer.SetPosition(0, mousePointer.transform.position - new Vector3(clone.transform.position.x, clone.transform.position.y, Camera.main.transform.position.z)); // Add first point in the Line Renderer
 
         newVerticies.Add(mousePointer.transform.position - clone.transform.position); // Add first point to the array used to create the Colliders
         newVerticies_.Add(mousePointer.transform.position - clone.transform.position);
 
-        // Check if the chosen collider is Edge or Polygon and destroy the one is not going to be used
+        // Check if the chosen collider is Edge or Polygon and destroy 3the one is not going to be used
         if (colliderType == ColliderTypeChoices.Edge_Collider)
         {
             Destroy(clone.GetComponent<PolygonCollider2D>());
@@ -386,15 +387,15 @@ Mathf.Infinity, layerMask);
     void DrawVisibleLine()
     {
         // Check if the minimun distance (verticesDistance) from the previous vertice is reached and add the next point
-        if (Vector2.Distance(mousePointer.transform.position, newVerticies_[posCount]) > verticesDistance)
+        if (Vector2.Distance(mousePointer.transform.position - clone.transform.position, newVerticies_[posCount]) > verticesDistance)
         {
-            DrawManager.Instance.ReduceCurrentInk(verticesDistance);            
+            DrawManager.Instance.ReduceCurrentInk(verticesDistance);
             //BugFix v4.0.2 - lenght calculation was adding forever. It is now in the correct position so it is possible to use lengthLimit
             lineLength += Vector2.Distance(mousePointer.transform.position, newVerticies_[posCount]);
 
             posCount++;
             pathLineRenderer.positionCount = posCount + 1;
-            pathLineRenderer.SetPosition(posCount, mousePointer.transform.position - new Vector3(0, 0, Camera.main.transform.position.z));
+            pathLineRenderer.SetPosition(posCount, mousePointer.transform.position - new Vector3(clone.transform.position.x, clone.transform.position.y, Camera.main.transform.position.z));
             newVerticies_.Add(mousePointer.transform.position - clone.transform.position);
 
             if (mouseHit == false)

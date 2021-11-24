@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using MoreMountains.Feedbacks;
 using TMPro;
 public class UIManager : MonoBehaviour
 {
@@ -21,11 +22,15 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject gameOverWinUIPanel = null;
     [SerializeField] private GameObject gameOverLoseUIPanel = null;
+    [SerializeField] private GameObject infoPanel = null;
+
 
     [Header ("Texts")]
     [SerializeField] private TextMeshProUGUI scoreText = null;
     [SerializeField] private Text mainLevelText = null;
     [SerializeField] private Text inGameLevelText = null;
+    [SerializeField] private Text countdownText;
+
 
     [Header("Inventory")]
     [SerializeField] private Text currentWalls = null;
@@ -117,12 +122,32 @@ public class UIManager : MonoBehaviour
         inGameLevelText.text = "LEVEL " + level;
     }
 
+    public void EnableInfoPanel()
+    {
+        infoPanel.SetActive(true);
+    }
   
     public void UpdateInkAmount(float val)
     {
         inkFill.fillAmount = val;
     }
 
+    public void UpdateCountDownText(string s)
+    {
+        countdownText.text = s;
+        countdownText.GetComponent<MMFeedbacks>().PlayFeedbacks();
+    }
+
+    public void EnableCountDownText()
+    {
+        if (!countdownText.gameObject.activeInHierarchy)
+            countdownText.gameObject.SetActive(true);
+    }
+    public void DisableCountDownText()
+    {
+        if(countdownText.gameObject.activeInHierarchy)
+        countdownText.gameObject.SetActive(false);
+    }
     public void UpdateInkColor(Color c)
     {
         inkFill.color = c;

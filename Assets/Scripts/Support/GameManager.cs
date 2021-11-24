@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using MoreMountains.NiceVibrations;
+
 public class GameManager : MonoBehaviour
 {
     #region Properties
@@ -20,6 +21,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameState currentState;
     [SerializeField] public int maxNumberOfBalls;
     [SerializeField] int currentNumberOfBalls;
+    [SerializeField] float failTime = 5f;
+    [SerializeField] float currentFailTime = 5f;
+
+    [SerializeField] float waitTime = 10f;
+
+    public bool isWaiting;
+    public bool isFailing;
+    private float waitStartTime;
+    private float failStartTime;
 
 
 
@@ -40,15 +50,74 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         //SwitchCamera(CameraType.MatchStickCamera);
+        currentFailTime = failTime;
         currentLevel = PlayerPrefs.GetInt("level", 1);
         UIManager.Instance.UpdateLevel(currentLevel);
-        currentState = GameState.Draw;
-        UpdateState(currentState);
-        maxLevels = 7;
+        maxLevels = 10;
         currentNumberOfBalls = maxNumberOfBalls;
+        StartWaitCountdown();
+        UIManager.Instance.UpdateCountDownText(currentFailTime+"");
+        if (PlayerPrefs.GetInt("first", 1)==1)
+        {
+            UIManager.Instance.EnableInfoPanel();
+            PlayerPrefs.SetInt("first", 0);
+        }
+        else
+        {
+            UpdateState(GameState.Draw);
+
+        }
+    }
+
+    private void Update()
+    {
+        if (currentState == GameState.Draw)
+        {
+            if (waitStartTime + waitTime < Time.time && isWaiting)
+            {
+                //Start fail time and show on screen
+                UIManager.Instance.EnableCountDownText();
+                failStartTime = Time.time;
+                isFailing = true;
+                isWaiting = false;
+            }
+
+            if (isFailing)
+            {
+                if(failStartTime + 1 < Time.time)
+                {
+                    currentFailTime--;
+                    UIManager.Instance.UpdateCountDownText(""+currentFailTime);
+                    failStartTime = Time.time;
+                    if (currentFailTime <= 0)
+                    {
+                        isFailing = false;
+                        LoseLevel();
+                    }
+                }
+            }
+            if (Input.GetMouseButtonDown(0))
+            {
+                ResetFailStart();
+            }
+        }
+
     }
     #endregion
+    public void StartWaitCountdown()
+    {
+        waitStartTime = Time.time;
+        isWaiting = true;
+    }
 
+    public void ResetFailStart()
+    {
+        //Hide fail countdown
+        UIManager.Instance.DisableCountDownText();
+        isFailing = false;
+        currentFailTime = failTime;
+        StartWaitCountdown();
+    }
     public void StartLevel()
     {
         UpdateState(GameState.InGame);
@@ -60,6 +129,8 @@ public class GameManager : MonoBehaviour
 
     public void StartDraw()
     {
+        TinySauce.OnGameStarted(currentLevel+"");
+
         UpdateState(GameState.Draw);
     }
     public void EndDraw()
@@ -82,6 +153,8 @@ public class GameManager : MonoBehaviour
             currentLevel++;
             confetti.SetActive(true);
             MMVibrationManager.Haptic(HapticTypes.Success);
+            TinySauce.OnGameFinished(true, 0);
+
         }
     }
 
@@ -97,6 +170,8 @@ public class GameManager : MonoBehaviour
         if (currentState == GameState.InGame || currentState == GameState.Draw)
         {
             UpdateState(GameState.Lose);
+            TinySauce.OnGameFinished(false, 0);
+
         }
     }
 

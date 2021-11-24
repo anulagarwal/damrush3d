@@ -75,7 +75,7 @@ MonoBehaviour:
   lenghLimit: 0
   lineLength: 0
   useCombinedClick: 0
-  combinedKey: 306
+  combinedKey: 0
 --- !u!1 &141120
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,8 +87,8 @@ GameObject:
   - component: {fileID: 461116}
   - component: {fileID: 3323314}
   - component: {fileID: 5861828}
-  - component: {fileID: 25767868}
   - component: {fileID: 5018620}
+  - component: {fileID: 6345697231065124065}
   m_Layer: 9
   m_Name: MousePointer
   m_TagString: Untagged
@@ -134,25 +134,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!257 &25767868
-TargetJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 141120}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_EnableCollision: 1
-  m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_Anchor: {x: 0, y: 0}
-  m_Target: {x: 0, y: 0}
-  m_AutoConfigureTarget: 0
-  m_MaxForce: 1000
-  m_DampingRatio: 1
-  m_Frequency: 5
 --- !u!50 &5018620
 Rigidbody2D:
   serializedVersion: 4
@@ -174,3 +155,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!257 &6345697231065124065
+TargetJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141120}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 1
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_Anchor: {x: 0, y: 0}
+  m_Target: {x: -1.3979492, y: 5.153076}
+  m_AutoConfigureTarget: 1
+  m_MaxForce: 10000
+  m_DampingRatio: 1
+  m_Frequency: 5

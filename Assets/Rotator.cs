@@ -10,7 +10,10 @@ public class Rotator : MonoBehaviour
     {
         
     }
-
+    public void SetSpeed(float s)
+    {
+        speed = s;
+    }
     // Update is called once per frame
     void Update()
     {

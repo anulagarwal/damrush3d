@@ -137,6 +137,8 @@ public class BallModifier : MonoBehaviour
             spawnedBalls.Add(ballObj.gameObject.GetInstanceID());
             spawnedBalls.Add(colliderPos.gameObject.GetInstanceID());
             ballObj.gameObject.SetActive(true);
+            GameManager.Instance.ResetFailStart();
+            SoundManager.Instance.PlaySound(SoundType.Pop);
             MMVibrationManager.Haptic(HapticTypes.MediumImpact);
             //  BucketController.Instance.ballsSpawned.Add(ballObj);
         }

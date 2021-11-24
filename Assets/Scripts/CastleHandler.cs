@@ -28,14 +28,19 @@ public class CastleHandler : MonoBehaviour
         if(collision.gameObject.tag == "DrawnWall")
         {
             Destroy(collision.gameObject);
+            GameManager.Instance.ResetFailStart();
+
         }
 
-        if(collision.gameObject.tag == "Ball")
+        if (collision.gameObject.tag == "Ball")
         {
             Destroy(collision.gameObject);
                 MMVibrationManager.Haptic(HapticTypes.MediumImpact);
             health -= 1;
             UpdateHealth(health);
+            SoundManager.Instance.PlaySound(SoundType.Pop);
+
+            GameManager.Instance.ResetFailStart();
             if (health <= 0)
             {
                 //Victory condition

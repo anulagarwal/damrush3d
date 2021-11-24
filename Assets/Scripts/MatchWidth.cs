@@ -20,9 +20,9 @@ public class MatchWidth : MonoBehaviour
     // even if the screen/window size changes dynamically.
     void Update()
     {
-        float unitsPerPixel = sceneWidth / Screen.width;
+        float unitsPerPixel = sceneWidth / Screen.height;
 
-        float desiredHalfHeight = 0.5f * unitsPerPixel * Screen.height;
+        float desiredHalfHeight = 0.5f * unitsPerPixel * Screen.width;
 
         _camera.orthographicSize = desiredHalfHeight;
     }

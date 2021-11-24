@@ -11,7 +11,7 @@ public class SceneHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        maxLevels = 7;
+        maxLevels = 10;
         currentLevel = PlayerPrefs.GetInt("level", 1);
 
         if (currentLevel > maxLevels)

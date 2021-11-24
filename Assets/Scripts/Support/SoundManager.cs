@@ -10,6 +10,7 @@ public class SoundManager : MonoBehaviour
         public AudioClip sound;
         public SoundType type;
     }
+    public static SoundManager Instance = null;
 
 
     [Header("Attributes")]
@@ -18,14 +19,25 @@ public class SoundManager : MonoBehaviour
     [Header("Component References")]
     [SerializeField] AudioSource source;
 
+    private void Awake()
+    {
+        Application.targetFrameRate = 100;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        Instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    void PlaySound(SoundType t)
+   public void PlaySound(SoundType t)
     {
-
+        source.clip = sounds.Find(x => x.type == t).sound;
+        source.Play();
     }
 }

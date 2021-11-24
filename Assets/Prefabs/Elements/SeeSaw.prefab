@@ -169,7 +169,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 85df7d47ebc644e05af6a4e58debea36, type: 2}
+  - {fileID: 2100000, guid: 9cdd7730092c94746850b48c26615b08, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -266,7 +266,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -0.000000087422755, y: 3.9999988}
+  m_ConnectedAnchor: {x: 0, y: 3.9999986}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 1000
@@ -339,7 +339,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9cdd7730092c94746850b48c26615b08, type: 2}
+  - {fileID: 2100000, guid: 59de26cd5967943a193bd58082971c51, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
