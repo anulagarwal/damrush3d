@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faa11ec82e9746928e211e7f096812ca, type: 3}
   m_Name: Settings
   m_EditorClassIdentifier: 
-  gameAnalyticsIosGameKey: 3a490e2acc9d37572eb003f180bda139
-  gameAnalyticsIosSecretKey: 42ede21dee9ad37a1c610af7c3f487ba64ef5bb3
-  gameAnalyticsAndroidGameKey: 316831f8a2731141269766de03475710
-  gameAnalyticsAndroidSecretKey: d68d0b32d7f939c9651be3f68617b605a07c08cf
-  facebookAppId: 1878006409062154
-  adjustIOSToken: qz545lrcccu8
-  adjustAndroidToken: tq2zwzxct2ww
+  gameAnalyticsIosGameKey: b930619c00cc5e3a96a04081bcdd6b98
+  gameAnalyticsIosSecretKey: bb618bfa1ec7a52562e8834392ac7d780482411d
+  gameAnalyticsAndroidGameKey: b930619c00cc5e3a96a04081bcdd6b98
+  gameAnalyticsAndroidSecretKey: 
+  facebookAppId: 242337344670560
+  adjustIOSToken: t9u37n4aqdq8
+  adjustAndroidToken: 
   EditorIdfa: d40fda9a-f30b-40e7-97e1-744496fc9aeb
   UseRemoteConfig: 0
   UseVoodooAnalytics: 1

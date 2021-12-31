@@ -31,6 +31,8 @@ public class DrawingManager : MonoBehaviour
     public GameObject massCenter;
     [HideInInspector]
     public GameObject mousePointer;
+
+    [SerializeField] GameObject pen;
     GameObject massCenterClone;
     GameObject clone;
     [HideInInspector]
@@ -136,6 +138,7 @@ public class DrawingManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(Input.GetMouseButton(0) || Input.GetMouseButtonDown(0)) 
         mousePointer.GetComponent<TargetJoint2D>().target = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x + offsetX,
                                                                        Camera.main.ScreenToWorldPoint(Input.mousePosition).y + offsetY);
     }

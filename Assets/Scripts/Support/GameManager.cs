@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using MoreMountains.NiceVibrations;
+using LionStudios.Suite.Analytics;
 
 public class GameManager : MonoBehaviour
 {
@@ -50,10 +49,12 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         //SwitchCamera(CameraType.MatchStickCamera);
+        LionAnalytics.GameStart();
+
         currentFailTime = failTime;
         currentLevel = PlayerPrefs.GetInt("level", 1);
         UIManager.Instance.UpdateLevel(currentLevel);
-        maxLevels = 10;
+        maxLevels = 11;
         currentNumberOfBalls = maxNumberOfBalls;
         StartWaitCountdown();
         UIManager.Instance.UpdateCountDownText(currentFailTime+"");
@@ -67,6 +68,9 @@ public class GameManager : MonoBehaviour
             UpdateState(GameState.Draw);
 
         }
+
+        LionAnalytics.LevelStart(currentLevel, 0, null);
+
     }
 
     private void Update()
@@ -129,7 +133,7 @@ public class GameManager : MonoBehaviour
 
     public void StartDraw()
     {
-        TinySauce.OnGameStarted(currentLevel+"");
+        //TinySauce.OnGameStarted(currentLevel+"");
 
         UpdateState(GameState.Draw);
     }
@@ -153,8 +157,11 @@ public class GameManager : MonoBehaviour
             currentLevel++;
             confetti.SetActive(true);
             MMVibrationManager.Haptic(HapticTypes.Success);
-            TinySauce.OnGameFinished(true, 0);
+            //TinySauce.OnGameFinished(true, 0);
 
+            LionAnalytics.LevelComplete(currentLevel-1, 0, null, null);
+
+            //AdManager.Instance.ShowInterstital();
         }
     }
 
@@ -170,7 +177,11 @@ public class GameManager : MonoBehaviour
         if (currentState == GameState.InGame || currentState == GameState.Draw)
         {
             UpdateState(GameState.Lose);
-            TinySauce.OnGameFinished(false, 0);
+//            TinySauce.OnGameFinished(false, 0);
+            LionAnalytics.LevelFail(currentLevel - 1, 0, null, null);
+
+            //  AdManager.Instance.ShowInterstital();
+
 
         }
     }

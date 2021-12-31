@@ -11,7 +11,7 @@ public class SceneHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        maxLevels = 10;
+        maxLevels = 11;
         currentLevel = PlayerPrefs.GetInt("level", 1);
 
         if (currentLevel > maxLevels)
@@ -27,6 +27,7 @@ public class SceneHandler : MonoBehaviour
         {
             SceneManager.LoadScene("Level " + currentLevel);
         }
+//        TinySauce.OnGameStarted();
     }
 
     // Update is called once per frame
